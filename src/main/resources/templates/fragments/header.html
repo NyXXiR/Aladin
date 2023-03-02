@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+
+
+
+<!--headerFragment 선언-->
+<div th:fragment="headerFragment">
+
+  <div class="fragment-header">
+헤더 파츠
+    <div class="fragment-header-logo" onclick="location.href='/';"></div>
+
+
+<!--    로그인 기능 주석처리-->
+<!--    <div class="fragment-header-login">-->
+<!--      <input type="hidden" class="login-sessionCheck" th:value="${session.memberNum}">-->
+<!--      <div class="login-sessionCheck-exist">-->
+<!--        <span th:value="|${loginId}+님|"></span> <a href="">내 정보</a> <a href="#">내 팀</a> <a href="#">내 게시글</a> <a-->
+<!--          href="#">내 댓글</a> <a href="#">쪽지함</a> <a href="#">로그아웃</a>-->
+
+<!--      </div>-->
+
+<!--      <div class="login-sessionCheck-notExist">-->
+<!--        <form action="/member/login" method="post">-->
+<!--          <input type="text" name="loginId"> <input type="text" name="password"> <input type="submit"-->
+<!--            value="로그인" />-->
+<!--        </form>-->
+<!--        <a href=#>회원가입</a>-->
+<!--      </div>-->
+
+<!--    </div>-->
+  </div>
+
+  <h2>navbar section</h2>
+
+</div>
+
+
+</html>
+
+
+
+
+
