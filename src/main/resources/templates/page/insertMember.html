@@ -2,7 +2,7 @@
 <html
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/default_layout}"
+  layout:decorate="~{layouts/detail_layout}"
 >
 
   <!-- home.html 고유 CSS 추가. 필요시 아래 주석 제거하고 매핑 -->
@@ -14,14 +14,13 @@
 
   <!-- Content -->
   <div layout:fragment="content">
-    <h1>Content-지금은 home에 와 있습니다.</h1>
+    <h1>Content-지금은 회원가입에 와 있습니다.</h1>
   </div>
   
   
   <th:block layout:fragment="script">
  <script>
-var log=1;
-console.log(log);
+
   </script>  
   </th:block>
  

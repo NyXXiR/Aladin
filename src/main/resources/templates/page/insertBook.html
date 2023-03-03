@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/detail_layout}"
+>
+
+  <!-- home.html 고유 CSS 추가. 필요시 아래 주석 제거하고 매핑 -->
+  <th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+  </th:block>
+  <!-- home_new.html 고유 스크립트 추가 -->
+  
+
+  <!-- Content -->
+  <div layout:fragment="content">
+    <h1>Content-지금은 책추가에 와 있습니다.</h1>
+
+    <div class="insertBook">
+      <form action="/page/insertBook" method="post">
+
+        <input type="text">
+
+
+      </form>
+
+
+    </div>
+
+  </div>
+  
+  
+  <th:block layout:fragment="script">
+ <script>
+
+  </script>  
+  </th:block>
+ 
+</html>

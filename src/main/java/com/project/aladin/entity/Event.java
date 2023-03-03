@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -12,6 +14,8 @@ import lombok.*;
 @Builder
 @ToString
 @AllArgsConstructor
+@DynamicInsert
+
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

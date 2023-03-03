@@ -2,7 +2,7 @@
 
 <head th:replace="~{fragments/config :: configFragment}"></head>
 
-
+<!-- 카테고리와 함께 사용할 레이아웃-->
 <body>
   <!-- container-fluid는 부트스트랩 요소. 전체를 감싸서 반응형으로 만드는 margin 0 auto 역할-->
   <div class="container-fluid">
@@ -11,23 +11,15 @@
 
 
 
+
     <div class="row">
 
-      <div class="col-md-2">
-        <!-- left sidebar-->
-        <th:block th:replace="~{fragments/sidebar_left :: leftSidebarFragment}"></th:block>
-      </div>
-
-      <div class="col-md-8">
         <!--content-->
         <div layout:fragment="content">공통 레이아웃</div>
 
-      </div>
 
-      <div class="col-md-2">
-        <!-- right sidebar-->
-        <th:block th:replace="~{fragments/sidebar_right :: rightSidebarFragment}"></th:block>
-      </div>
+
+
     </div>
 
 

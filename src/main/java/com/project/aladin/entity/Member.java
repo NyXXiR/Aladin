@@ -11,6 +11,9 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -18,6 +21,8 @@ import lombok.*;
 @Builder
 @ToString
 @AllArgsConstructor
+@DynamicInsert
+
 public class Member {
 
     @Id
@@ -28,8 +33,11 @@ public class Member {
     private String pw;
 
     //마이페이지 변수
+    @ColumnDefault("0")
     private int mileage;
+    @ColumnDefault("0")
     private int totalPrice;
+    @ColumnDefault("0")
     private int totalBuyCount;
 
     @OneToMany(mappedBy="memberId")

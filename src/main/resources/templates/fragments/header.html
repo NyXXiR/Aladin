@@ -2,36 +2,100 @@
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 
 
-
 <!--headerFragment 선언-->
 <div th:fragment="headerFragment">
 
   <div class="fragment-header">
-헤더 파츠
-    <div class="fragment-header-logo" onclick="location.href='/';"></div>
+    헤더 파츠
+
+    <div class="navbar-top">
+
+    <div class="login-sessionCheck">
+    <span class="login-sessionCheck-exist">
+   <a href="/#"> 마이페이지</a>
+      <a href="/#">장바구니</a>
+
+    </span>
+
+      <span class="login-sessionCheck-notExist">
+        <form action="/#" method="post" class="header-login-form">
+          <input type="text" name="id">
+          <input type="text" name="pw">
+            <input type="checkbox" class="save-session-localStorage"value="remember me">remember me</input>
+
+          <input type="submit" name="login" value="로그인">
+         </form>
+      <a href="/#">회원가입</a>
 
 
-<!--    로그인 기능 주석처리-->
-<!--    <div class="fragment-header-login">-->
-<!--      <input type="hidden" class="login-sessionCheck" th:value="${session.memberNum}">-->
-<!--      <div class="login-sessionCheck-exist">-->
-<!--        <span th:value="|${loginId}+님|"></span> <a href="">내 정보</a> <a href="#">내 팀</a> <a href="#">내 게시글</a> <a-->
-<!--          href="#">내 댓글</a> <a href="#">쪽지함</a> <a href="#">로그아웃</a>-->
+    </span>
+    </div>
+    </div>
 
-<!--      </div>-->
 
-<!--      <div class="login-sessionCheck-notExist">-->
-<!--        <form action="/member/login" method="post">-->
-<!--          <input type="text" name="loginId"> <input type="text" name="password"> <input type="submit"-->
-<!--            value="로그인" />-->
-<!--        </form>-->
-<!--        <a href=#>회원가입</a>-->
-<!--      </div>-->
 
-<!--    </div>-->
+    <!--    로그인 기능 주석처리-->
+    <!--    <div class="fragment-header-login">-->
+    <!--      <input type="hidden" class="login-sessionCheck" th:value="${session.memberNum}">-->
+    <!--      <div class="login-sessionCheck-exist">-->
+    <!--        <span th:value="|${loginId}+님|"></span> <a href="">내 정보</a> <a href="#">내 팀</a> <a href="#">내 게시글</a> <a-->
+    <!--          href="#">내 댓글</a> <a href="#">쪽지함</a> <a href="#">로그아웃</a>-->
+
+    <!--      </div>-->
+
+    <!--      <div class="login-sessionCheck-notExist">-->
+    <!--        <form action="/member/login" method="post">-->
+    <!--          <input type="text" name="loginId"> <input type="text" name="password"> <input type="submit"-->
+    <!--            value="로그인" />-->
+    <!--        </form>-->
+    <!--        <a href=#>회원가입</a>-->
+    <!--      </div>-->
+
+    <!--    </div>-->
   </div>
 
   <h2>navbar section</h2>
+  <div class="navbar-main">
+
+    <div class="fragment-header-logo" onclick="location.href='/';"
+    ></div>
+
+<span class="navbar-main-search">
+  검색창 들어갈 곳
+<form action="/#" method="get" id="search-form">
+ <select name="search-category" class="serach-category" form="search-form">
+   <option value="category1">카테고리1</option>
+   <option value="category2">카테고리2</option>
+   <option value="category3">카테고리3</option>
+ </select>
+  <input type="text" name="search-text">
+  <input type="submit" class="button-submit" value="검색">
+</form>
+</span>
+
+    <span class="ad-sm">
+      작은 광고 들어갈 곳
+    </span>
+
+
+  </div>
+
+  <div class="navbar-bottom-category">
+    <div class="navbar-menu">
+      <a href="/">메인페이지임시</a>
+      <a href="/page/detail">상세보기임시</a>
+      <a href="/page/category">카테고리임시</a>
+      <a href="/page/login">로그인임시</a>
+      <a href="/page/myPage">마이페이지임시</a>
+      <a href="/page/insertBook">책추가임시</a>
+      <a href="/page/insertMember">회원가입임시</a>
+
+
+
+
+    </div>
+
+  </div>
 
 </div>
 

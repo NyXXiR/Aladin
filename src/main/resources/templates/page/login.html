@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+    layout:decorate="~{layouts/detail_layout}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+>
+
+<!-- home.html 고유 CSS 추가. 필요시 아래 주석 제거하고 매핑 -->
+<th:block layout:fragment="css">
+
+  <style>
+
+    .form-signin {
+      display: flex;
+      justify-content: center;
+    }
+    .mb-4{
+      background-image:url("../images/logo.gif");
+      width:192px;
+      height:88px;
+
+
+    }
+
+  </style>
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+
+
+<!-- Content -->
+<div layout:fragment="content">
+
+  <main class="form-signin">
+    <form>
+      <div class="mb-4">
+
+      </div>
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+      <div class="form-floating">
+        <input class="form-control" id="floatingInput" placeholder="name@example.com" type="email">
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" id="floatingPassword" placeholder="Password" type="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+    </form>
+  </main>
+
+</div>
+
+
+<th:block layout:fragment="script">
+  <script>
+
+  </script>
+</th:block>
+
+</html>
