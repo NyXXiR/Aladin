@@ -10,17 +10,19 @@
 
     <div class="navbar-top">
 
-    <div class="login-sessionCheck">
+    <div class="login-authentication">
+      <input type="hidden" class="login-sessionCheck" th:value="${session.memberSeq}">
     <span class="login-sessionCheck-exist">
    <a href="/#"> 마이페이지</a>
       <a href="/#">장바구니</a>
+      <a href="/logout">로그아웃</a>
 
     </span>
 
       <span class="login-sessionCheck-notExist">
-        <form action="/#" method="post" class="header-login-form">
+        <form action="/page/login" method="post" class="header-login-form">
           <input type="text" name="id">
-          <input type="text" name="pw">
+          <input type="password" name="pw">
             <input type="checkbox" class="save-session-localStorage"value="remember me">remember me</input>
 
           <input type="submit" name="login" value="로그인">
@@ -89,6 +91,7 @@
       <a href="/page/myPage">마이페이지임시</a>
       <a href="/page/insertBook">책추가임시</a>
       <a href="/page/insertMember">회원가입임시</a>
+      <a href="/page/prototype">프로토타입임시</a>
 
 
 

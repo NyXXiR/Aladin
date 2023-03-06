@@ -40,7 +40,9 @@ public class Member {
     @ColumnDefault("0")
     private int totalBuyCount;
 
-    @OneToMany(mappedBy="memberId")
+    @OneToMany(mappedBy="member")
+    @Builder.Default
+
     private List<Comment> commentList =new ArrayList<>();
 
 }

@@ -18,7 +18,6 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @ToString
 @DynamicInsert
-
 @AllArgsConstructor
 public class Comment {
 
@@ -27,12 +26,12 @@ public class Comment {
     Long seq;
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="memberId")
-    private Member memberId;
+    @JoinColumn(name="memberSeq")
+    private Member member;
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="bookId")
-    private Book bookId;
+    @JoinColumn(name="bookSeq")
+    private Book book;
 
     @ColumnDefault("0")
     private int depth;

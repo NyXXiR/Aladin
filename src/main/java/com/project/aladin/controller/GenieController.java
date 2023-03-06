@@ -1,14 +1,19 @@
 package com.project.aladin.controller;
 
+import com.project.aladin.entity.Member;
 import com.project.aladin.repository.BookRepository;
 import com.project.aladin.repository.CommentRepository;
 import com.project.aladin.repository.EventRepository;
 import com.project.aladin.repository.MemberRepository;
 import com.project.aladin.repository.PurchaseRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,13 +43,38 @@ public String index(Model model){
     return "page/category";
 }
 
-
-
-    @GetMapping("/page/login")
-    public String login(){
-        return "page/login";
+    @GetMapping("/page/prototype")
+    public String prototype(){
+        return "page/prototype";
     }
 
+
+
+@GetMapping("/page/login")
+public String toLogin(){
+    return "page/login";
+}
+    @PostMapping("/page/login")
+    public String login(HttpSession session, HttpServletRequest request, String id, String pw,
+        Model model){
+
+Optional<Member> loginMember= mr.findByMemberIdAndPw(id,pw);
+
+if(loginMember.isPresent()){
+    session.setAttribute("memberSeq", loginMember.get().getSeq());
+}else{
+    return "redirect:/page/login";
+}
+
+
+    return "page/home";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+session.invalidate();
+return "redirect:/";
+    }
 @GetMapping("/page/myPage")
 public String myPage(){
     return "page/myPage";

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+    layout:decorate="~{layouts/detail_layout}"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+>
+
+<!-- home.html 고유 CSS 추가. 필요시 아래 주석 제거하고 매핑 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+
+  <style>
+
+    .purchase-quantity {
+      display: flex;
+    }
+  </style>
+</th:block>
+<!-- home_new.html 고유 스크립트 추가 -->
+
+
+<!-- Content -->
+<div layout:fragment="content">
+  <h1>Content-지금은 detail에 와 있습니다.</h1>
+
+  <div class="detail-book">
+    <div>
+      제목
+    </div>
+    <div>
+      <span>writer</span>
+      <span>publisher</span>
+      <span>publishDate</span>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 detail-book-image">
+        <div> 사진여기</div>
+      </div>
+      <div class="col-md-9 detail-book-information">
+        <div>이벤트문구</div>
+        <div> 정가: 가격입력</div>
+        <div>판매가: 할인적용해서 입력</div>
+        <div> 마일리지</div>
+        <div> 배송료</div>
+        <div> 별점/ 리뷰갯수</div>
+        <form action="/#" method="get">
+
+          <div class="purchase-quantity">
+          <span>
+        <input name="quantity" type="text" value="1">
+            </span>
+            <span>
+            <div>+버튼</div>
+            <div>-버튼</div>
+          </span>
+          </div>
+
+          <div class="purchase-button">
+            <span>장바구니담기</span> <span>바로구매</span> <span>선물하기</span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div>책소개</div>
+    <div>목차</div>
+    <div>저자소개</div>
+
+    <div>별점상세</div>
+    <div>리뷰목록</div>
+  </div>
+</div>
+
+
+<th:block layout:fragment="script">
+  <script>
+
+  </script>
+</th:block>
+
+</html>

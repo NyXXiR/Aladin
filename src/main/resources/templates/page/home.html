@@ -16,6 +16,57 @@
   <div layout:fragment="content">
     <h1>Content-지금은 home에 와 있습니다.</h1>
       <div th:value="${test}"></div>
+
+    <div>판매량 10순위 표시</div>
+    <div class="component-list-md">
+      <div>일정 기간 동안의 베스트셀러 TOP 10 - th:each 활용할 것</div>
+      <div class="list-sortby-purchase">
+        <div class="1to5">
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+        </div>
+        <div class="6to10">
+          <span>6</span>
+          <span>7</span>
+          <span>8</span>
+          <span>9</span>
+          <span>10</span>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="component-box-md">
+      <div class="box-md">
+        <div class="box-image">
+          이미지는 asset에 저장하고 넘어온 book의 seq를 기준으로 조회한다
+        </div>
+        <div class="box-book-name">책이름</div>
+      </div>
+
+      <div class="box-md">
+        <div class="box-image">
+          이미지는 asset에 저장하고 넘어온 book의 seq를 기준으로 조회한다
+        </div>
+        <div class="box-book-name">책이름</div>
+      </div>
+
+      <div class="box-md">
+        <div class="box-image">
+          이미지는 asset에 저장하고 넘어온 book의 seq를 기준으로 조회한다
+        </div>
+        <div class="box-book-name">책이름</div>
+      </div>
+
+
+    </div>
+
+
   </div>
   
   

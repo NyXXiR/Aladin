@@ -4,6 +4,22 @@
   background-repeat: no-repeat
 }
 
+.component-box-md{
+  display:flex;
+  justify-content: space-evenly;
+
+}
+
+
+.component-list-md{
+  display:flex;
+  justify-content: center;
+}
+
+.box-image{
+  width:200px;
+  height:300px;
+}
 
 /* header 시작 */
 .fragment-header-logo{

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,23 +30,23 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Builder
 @ToString
-@AllArgsConstructor
 @DynamicInsert
-
+@AllArgsConstructor
 public class Purchase {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
  private Long seq;
 
   private int quantity;
-  @DateTimeFormat
-  @ColumnDefault("now()")
-  private String buyDate;
-  @ManyToOne(fetch= FetchType.LAZY)
-  @JoinColumn(name="memberId")
-  private Member memberId;
+ @DateTimeFormat(pattern="yyyy-MM-dd")
+ @CreationTimestamp
+ private LocalDateTime buyDate;
 
   @ManyToOne(fetch= FetchType.LAZY)
-  @JoinColumn(name="bookId")
-  private Book bookId;
+  @JoinColumn(name="memberSeq")
+  private Member member;
+
+  @ManyToOne(fetch= FetchType.LAZY)
+  @JoinColumn(name="bookSeq")
+  private Book book;
 }

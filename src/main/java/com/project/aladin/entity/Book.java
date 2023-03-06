@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
@@ -33,8 +34,7 @@ public class Book {
   private String publisher;
   private String category;
 
-  @DateTimeFormat
-  private String publishDate;
+  private LocalDateTime publishDate;
   
   //가격 정보
   private int price;
@@ -46,9 +46,11 @@ public class Book {
   @ColumnDefault("0")
   private int shipPrice;
 
-@OneToMany(mappedBy = "bookId")
+@OneToMany(mappedBy = "book")
+@Builder.Default
   private List<Comment> commentList= new ArrayList<>();
 
-  @OneToMany(mappedBy = "bookId")
+  @OneToMany(mappedBy = "book")
+  @Builder.Default
   private List<Purchase> purchaseList= new ArrayList<>();
 }
