@@ -42,7 +42,14 @@ public class Member {
 
     @OneToMany(mappedBy="member")
     @Builder.Default
-
     private List<Comment> commentList =new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    @Builder.Default
+    private List<Review> reviewList= new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    @Builder.Default
+    private List<Cart> cartList= new ArrayList<>();
+
 }
+

@@ -1,9 +1,19 @@
 *{
-    border:1px solid black;
+
   background-position: center;
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
+  margin: 0;
+  padding:0;
 }
 
+hr{
+  margin:0;
+  border:1px solid;
+}
+
+a{
+  text-decoration: none;
+}
 .component-box-md{
   display:flex;
   justify-content: space-evenly;
@@ -16,10 +26,7 @@
   justify-content: center;
 }
 
-.box-image{
-  width:200px;
-  height:300px;
-}
+
 
 /* header 시작 */
 .fragment-header-logo{
@@ -27,7 +34,7 @@
     width:192px;
     height:88px;
    background-size:cover;
-    backgorund-repeat:no-repeat;
+  background-repeat:no-repeat;
   display:inline-block;
 
 }
@@ -35,7 +42,7 @@
 .navbar-main{
   display:flex;
   justify-content: space-between;
-
+  align-items: center;
 }
 
 .container-sidebar{display:flex;
@@ -45,7 +52,7 @@
 .container-sidebar > *{
   width:80%;
   height:80px;
-  background:pink;
+  background:#df307f;
   justify-content: center;
 
 }
@@ -57,7 +64,10 @@
 .navbar-top{
   display:flex;
   justify-content: flex-end;
+  background:deepskyblue;
+  text-decoration-color: aliceblue;
 
 }
+
 
 /* header 끝 */

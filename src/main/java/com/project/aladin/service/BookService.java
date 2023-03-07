@@ -13,12 +13,12 @@ import lombok.RequiredArgsConstructor;
 public class BookService {
 
  final  BookRepository br;
- 
- 
+
+
  public Page<Book> getBookList(int page){
    Pageable pageable = PageRequest.of(page,10);
    return this.br.findAll(pageable);
-   
+
  }
-  
+
 }

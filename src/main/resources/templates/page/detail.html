@@ -14,6 +14,15 @@
     .purchase-quantity {
       display: flex;
     }
+.book-image{
+  width:300px;
+width:100%;
+}
+
+.row{
+  align-items: center;
+}
+
   </style>
 </th:block>
 <!-- home_new.html 고유 스크립트 추가 -->
@@ -23,41 +32,48 @@
 <div layout:fragment="content">
   <h1>Content-지금은 detail에 와 있습니다.</h1>
 
-  <div class="detail-book">
-    <div>
-      제목
+  <div class="detail-book" th:each="book: ${session.book}">
+    <div th:text="${book.getBookName()}">
+      title
     </div>
     <div>
-      <span>writer</span>
-      <span>publisher</span>
-      <span>publishDate</span>
+      <span th:text="${book.getWriter()}">writer</span>
+      <span th:text="${book.getPublisher()}">publisher</span>
+      <span th:text="${book.getPublishDate()}">publishDate</span>
     </div>
 
     <div class="row">
       <div class="col-md-3 detail-book-image">
-        <div> 사진여기</div>
+          <image class="book-image" th:src="|../../images/${book.getSeq()}.jpg|" onerror="this.src='../../images/error.gif'"></image>
       </div>
+
       <div class="col-md-9 detail-book-information">
         <div>이벤트문구</div>
-        <div> 정가: 가격입력</div>
-        <div>판매가: 할인적용해서 입력</div>
-        <div> 마일리지</div>
-        <div> 배송료</div>
-        <div> 별점/ 리뷰갯수</div>
-        <form action="/#" method="get">
+        <div id="price" th:value="${book.getPrice()}" th:text="|정가: ${book.getPrice()}|"> 정가:
+          가격입력
+        </div>
 
+        <input type="hidden" id="discountRate" th:value="${book.getDiscountRate()}">
+        <input type="hidden" id="mileageRate" th:value="${book.getMileageRate()}">
+        <div id="discounted" text=""></div>
+        <div id="mileage" text=""> </div>
+        <div th:text="|배송료: ${book.getShipPrice()}|"> 배송료</div>
+        <div> 별점/ 리뷰갯수 > 는 review 테이블 가져와야 함</div>
+        <form method="get">
           <div class="purchase-quantity">
           <span>
-        <input name="quantity" type="text" value="1">
+        <input name="quantity" class="quantity" type="text" value="1" readonly>
             </span>
             <span>
-            <div>+버튼</div>
-            <div>-버튼</div>
+            <input type="button" onclick="quantityPlus()"value="+버튼">
+              <input type="button" onclick="quantityMinus()" value="-버튼">
           </span>
           </div>
 
           <div class="purchase-button">
-            <span>장바구니담기</span> <span>바로구매</span> <span>선물하기</span>
+            <input type="submit" value="장바구니담기" formaction="/page/cartList">
+            <input type="submit" value="바로구매" formaction="/page/directBuy">
+            <input type="submit" value="선물하기(구현안함)" formaction="">
           </div>
         </form>
       </div>
@@ -80,8 +96,35 @@
 
 
 <th:block layout:fragment="script">
-  <script>
+  <script th:inline="javascript">
+    const price = document.querySelector("#price").getAttribute("value");
+    const discountRate = document.querySelector("#discountRate").getAttribute("value");
+    const mileageRate = document.querySelector("#mileageRate").getAttribute("value");
 
+    const discounted = price * (100-discountRate) / 100;
+    const mileage = price * mileageRate / 100;
+
+console.log(discountRate);
+document.querySelector("#discounted").textContent="할인가: "+ discounted;
+    document.querySelector("#mileage").textContent="적립마일리지("+mileageRate+"%): "+ mileage;
+
+
+    function quantityPlus(){
+      const quantity= document.querySelector(".quantity");
+      let quantityValue= document.querySelector(".quantity").getAttribute("value");
+      quantityValue++;
+quantity.setAttribute("value", quantityValue);
+
+    }
+
+    function quantityMinus(){
+      const quantity= document.querySelector(".quantity");
+      let quantityValue= document.querySelector(".quantity").getAttribute("value");
+      if(quantityValue>1){  quantityValue--;}
+
+      quantity.setAttribute("value", quantityValue);
+
+    }
   </script>
 </th:block>
 

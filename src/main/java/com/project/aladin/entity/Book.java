@@ -38,12 +38,12 @@ public class Book {
   
   //가격 정보
   private int price;
-  @ColumnDefault("0")
+  @ColumnDefault("10")
   private int discountRate;
   //마일리지 적립율 의미
   @ColumnDefault("5")
-  private int savingRate;
-  @ColumnDefault("0")
+  private int mileageRate;
+  @ColumnDefault("3000")
   private int shipPrice;
 
 @OneToMany(mappedBy = "book")
@@ -53,4 +53,8 @@ public class Book {
   @OneToMany(mappedBy = "book")
   @Builder.Default
   private List<Purchase> purchaseList= new ArrayList<>();
+
+  @OneToMany(mappedBy = "book")
+  @Builder.Default
+  private List<Review> reviewList= new ArrayList<>();
 }
