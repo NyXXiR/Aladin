@@ -32,7 +32,7 @@ width:100%;
 <div layout:fragment="content">
   <h1>Content-지금은 detail에 와 있습니다.</h1>
 
-  <div class="detail-book" th:each="book: ${book}">
+  <div class="detail-book" th:each="book: ${session.book}">
     <div th:text="${book.getBookName()}">
       title
     </div>
@@ -59,21 +59,20 @@ width:100%;
         <div id="mileage" text=""> </div>
         <div th:text="|배송료: ${book.getShipPrice()}|"> 배송료</div>
         <div> 별점/ 리뷰갯수 > 는 review 테이블 가져와야 함</div>
-        <form action="/#" method="get">
-          <input type="hidden" id="bookSeq" th:value="${book.getSeq()}">
+        <form method="get">
           <div class="purchase-quantity">
           <span>
-        <input name="quantity" type="text" value="1" readonly>
+        <input name="quantity" class="quantity" type="text" value="1" readonly>
             </span>
             <span>
-            <input type="button" onclick=""value="+버튼">
-              <input type="button" onclick="" value="-버튼">
+            <input type="button" onclick="quantityPlus()"value="+버튼">
+              <input type="button" onclick="quantityMinus()" value="-버튼">
           </span>
           </div>
 
           <div class="purchase-button">
-            <input type="submit" value="장바구니담기" formaction="">
-            <input type="submit" value="바로구매" formaction="">
+            <input type="submit" value="장바구니담기" formaction="/page/cartList">
+            <input type="submit" value="바로구매" formaction="/page/directBuy">
             <input type="submit" value="선물하기(구현안함)" formaction="">
           </div>
         </form>
@@ -101,7 +100,25 @@ width:100%;
 
 console.log(discountRate);
 document.querySelector("#discounted").textContent="할인가: "+ discounted;
-    document.querySelector("#mileage").textContent="적립마일리지("+mileageRate++"): "+ mileage;
+    document.querySelector("#mileage").textContent="적립마일리지("+mileageRate+"%): "+ mileage;
+
+
+    function quantityPlus(){
+      const quantity= document.querySelector(".quantity");
+      let quantityValue= document.querySelector(".quantity").getAttribute("value");
+      quantityValue++;
+quantity.setAttribute("value", quantityValue);
+
+    }
+
+    function quantityMinus(){
+      const quantity= document.querySelector(".quantity");
+      let quantityValue= document.querySelector(".quantity").getAttribute("value");
+      if(quantityValue>1){  quantityValue--;}
+
+      quantity.setAttribute("value", quantityValue);
+
+    }
   </script>
 </th:block>
 

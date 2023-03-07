@@ -1,12 +1,15 @@
 package com.project.aladin.controller;
 
 import com.project.aladin.entity.Book;
+import com.project.aladin.entity.Cart;
 import com.project.aladin.entity.Member;
 import com.project.aladin.repository.BookRepository;
+import com.project.aladin.repository.CartRepository;
 import com.project.aladin.repository.CommentRepository;
 import com.project.aladin.repository.EventRepository;
 import com.project.aladin.repository.MemberRepository;
 import com.project.aladin.repository.PurchaseRepository;
+import com.project.aladin.repository.ReviewRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
@@ -22,10 +25,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class GenieController {
 
   final BookRepository br;
-  final CommentRepository cr;
+  final CommentRepository cr2;
   final EventRepository er;
   final MemberRepository mr;
   final PurchaseRepository pr;
+
+  final CartRepository cr;
+
+  final ReviewRepository rr;
 
   //메인페이지
   @GetMapping("/")
@@ -35,15 +42,15 @@ public class GenieController {
     return "page/home";
   }
 
-  //나중에 pathvariable로 각 detail로 연결되도록 해야 함
+
   @GetMapping("/page/detail/{bookId}")
-  public String detail(@PathVariable long bookId, Model model) {
+  public String detail(@PathVariable long bookId, HttpSession session) {
     // ID를 기준으로 객체를 생성, 보내줌
+    //이 때 세션에 객체를 저장해놓고 계속 사용한다.
     Optional<Book> book = br.findById(bookId);
     Book unwrappedBook = book.get();
-    int discounted= book.get().getPrice()*book.get().getDiscountRate()/100;
-    model.addAttribute("book", unwrappedBook);
-model.addAttribute("discounted", discounted);
+    session.setAttribute("book", unwrappedBook);
+
     return "page/detail";
   }
 
@@ -103,10 +110,42 @@ model.addAttribute("discounted", discounted);
 
   //구매 프로세스 관련 매핑
 
+
+
   @GetMapping("/page/cartList")
-  public String cartList(){
+  public String cartList(int quantity){
+    //long bookSeq랑 int quantity 넘어옴
     return "page/cartList";
   }
+
+  //detail에서 제품을 추가하면서 카트리스트로 갈 경우, addToCart 매핑을 거쳐서 리다이렉트하도록 설계
+@GetMapping("/function/addToCart")
+  public String addToCart(HttpSession session, int quantity){
+    Optional<Long> loginSession= (Optional<Long>) session.getAttribute("memberSeq");
+if(loginSession.isPresent()){
+Book book= (Book) session.getAttribute("book");
+Cart cartItem =new Cart();
+cartItem.setQuantity(quantity);
+cartItem.setBook(book);
+long id= loginSession.get();
+Optional<Member> member= mr.findById(id);
+cartItem.setMember(member.get());
+cr.save(cartItem);
+
+}else{
+  return "page/login";
+}
+
+return "redirect:/page/cartList";
+  }
+
+  @GetMapping("/page/directBuy")
+  public String directBuy(){
+    //long bookSeq랑 int quantity 넘어옴
+
+    return "page/directBuy";
+  }
+
 
 
 }

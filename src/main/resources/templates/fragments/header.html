@@ -6,34 +6,38 @@
 <div th:fragment="headerFragment">
 
   <div class="fragment-header">
-    헤더 파츠
-
+    <hr style="color:steelblue">
     <div class="navbar-top">
+
 
     <div class="login-authentication">
       <input type="hidden" class="login-sessionCheck" th:value="${session.memberSeq}">
     <span class="login-sessionCheck-exist">
-   <a href="/#"> 마이페이지</a>
-      <a href="/#">장바구니</a>
-      <a href="/logout">로그아웃</a>
-
+      <div class="navbar-login-font" style="color:white;">
+   <a href="/#" style="color:white;"> 마이페이지</a>
+      <a href="/#" style="color:white;">장바구니</a>
+      <a href="/logout" style="color:white;">로그아웃</a>
+</div>
     </span>
 
       <span class="login-sessionCheck-notExist">
+        <div class="navbar-login-font" >
         <form action="/page/login" method="post" class="header-login-form">
           <input type="text" name="id">
           <input type="password" name="pw">
-            <input type="checkbox" class="save-session-localStorage"value="remember me">remember me</input>
+            <input type="checkbox" class="save-session-localStorage"value="remember me" style="color:white;">remember me</input>
 
           <input type="submit" name="login" value="로그인">
          </form>
-      <a href="/#">회원가입</a>
+        </div>
+      <a href="/#" style="color:white;">회원가입</a>
 
 
     </span>
     </div>
-    </div>
 
+    </div>
+    <hr style="color:steelblue">
 
 
     <!--    로그인 기능 주석처리-->
@@ -54,9 +58,9 @@
     <!--      </div>-->
 
     <!--    </div>-->
+
   </div>
 
-  <h2>navbar section</h2>
   <div class="navbar-main">
 
     <div class="fragment-header-logo" onclick="location.href='/';"
@@ -93,6 +97,7 @@
       <a href="/page/insertMember">회원가입임시</a>
       <a href="/page/prototype">프로토타입임시</a>
       <a href="/page/cartList">카트리스트임시</a>
+      <a href="/page/directBuy">바로구매임시</a>
 
 
 
@@ -101,7 +106,7 @@
     </div>
 
   </div>
-
+<hr style="color:steelblue">
 </div>
 
 
