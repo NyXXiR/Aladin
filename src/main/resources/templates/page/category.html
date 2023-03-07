@@ -15,6 +15,19 @@
   <!-- Content -->
   <div layout:fragment="content">
     <h1>Content-지금은 category에 와 있습니다.</h1>
+    
+    
+    <div class="list-category">
+    <div class="category-row" th:each="list :${pageList}">
+    <span th:text="${list.bookName}">  </span>
+    지은이: <span th:text="${list.writer}">  </span>
+    출판사: <span th:text="${list.publisher}">  </span>
+    카테고리: <span th:text="${list.category}">  </span>
+    출판일자: <span th:text="${list.publishDate}">  </span>
+    
+   </div>
+    
+    </div>
   </div>
   
   

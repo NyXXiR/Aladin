@@ -1,19 +1,26 @@
 package com.project.aladin.controller;
 
+import com.project.aladin.entity.Book;
 import com.project.aladin.entity.Member;
 import com.project.aladin.repository.BookRepository;
 import com.project.aladin.repository.CommentRepository;
 import com.project.aladin.repository.EventRepository;
 import com.project.aladin.repository.MemberRepository;
 import com.project.aladin.repository.PurchaseRepository;
+import com.project.aladin.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +31,8 @@ public class GenieController {
     final EventRepository er;
     final MemberRepository mr;
     final PurchaseRepository pr;
+    
+    final BookService bs;
 
     //메인페이지
 @GetMapping ("/")
@@ -39,7 +48,13 @@ public String index(Model model){
 }
 
 @GetMapping("/page/category")
-    public String category(){
+    public String category(Model model, @RequestParam(value="page",defaultValue="0")int page){
+Page<Book> pageList = bs.getBookList(page);
+
+model.addAttribute("pageList",pageList);
+
+  
+  
     return "page/category";
 }
 
