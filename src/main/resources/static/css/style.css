@@ -1,7 +1,9 @@
 *{
     border:1px solid black;
   background-position: center;
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  padding:0;
 }
 
 .component-box-md{
@@ -16,10 +18,7 @@
   justify-content: center;
 }
 
-.box-image{
-  width:200px;
-  height:300px;
-}
+
 
 /* header 시작 */
 .fragment-header-logo{
@@ -35,7 +34,7 @@
 .navbar-main{
   display:flex;
   justify-content: space-between;
-
+  align-items: center;
 }
 
 .container-sidebar{display:flex;
