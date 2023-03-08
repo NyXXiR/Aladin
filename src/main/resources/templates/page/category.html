@@ -19,12 +19,15 @@
     
     <div class="list-category">
     <div class="category-row" th:each="list :${pageList}">
+      <div style=" cursor: pointer;" th:onclick="|location.href='/page/detail/${list.getSeq()}';|">
     <span th:text="${list.bookName}">  </span>
     지은이: <span th:text="${list.writer}">  </span>
     출판사: <span th:text="${list.publisher}">  </span>
     카테고리: <span th:text="${list.category}">  </span>
     출판일자: <span th:text="${list.publishDate}">  </span>
-    
+
+      <hr style="color:steelblue">
+      </div>
    </div>
     
     </div>

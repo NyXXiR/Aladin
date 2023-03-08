@@ -1,73 +1,84 @@
-*{
+* {
 
   background-position: center;
   background-repeat: no-repeat;
   margin: 0;
-  padding:0;
+  padding: 0;
 }
 
-hr{
-  margin:0;
-  border:1px solid;
+hr {
+  margin: 0;
+  border: 1px solid;
 }
 
-a{
+a {
   text-decoration: none;
 }
-.component-box-md{
-  display:flex;
+
+.component-box-md {
+  display: flex;
   justify-content: space-evenly;
 
 }
 
 
-.component-list-md{
-  display:flex;
+.component-list-md {
+  display: flex;
   justify-content: center;
 }
 
 
-
 /* header 시작 */
-.fragment-header-logo{
-    background-image:url("../images/logo.gif");
-    width:192px;
-    height:88px;
-   background-size:cover;
-  background-repeat:no-repeat;
-  display:inline-block;
+.fragment-header-logo {
+  background-image: url("../images/logo.gif");
+  width: 192px;
+  height: 88px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: inline-block;
 
 }
 
-.navbar-main{
-  display:flex;
+.navbar-main {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.container-sidebar{display:flex;
+.container-sidebar {
+  display: flex;
   flex-direction: column;
-  align-items: center;}
+  align-items: center;
+}
 
-.container-sidebar > *{
-  width:80%;
-  height:80px;
-  background:#df307f;
+.container-sidebar > * {
+  width: 80%;
+  height: 80px;
+  background: #df307f;
   justify-content: center;
 
 }
 
-.header-login-form{
-  display:inline-block;
+.header-login-form {
+  display: inline-block;
 }
 
-.navbar-top{
-  display:flex;
+.navbar-top {
+  display: flex;
   justify-content: flex-end;
-  background:deepskyblue;
+  background: deepskyblue;
   text-decoration-color: aliceblue;
 
 }
 
+.ad-sm {
+  background: url("../../images/ad-sm.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width:20%;
+  padding-bottom: 8%;
+
+}
 
 /* header 끝 */

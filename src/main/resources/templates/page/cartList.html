@@ -15,8 +15,21 @@
 <!-- Content -->
 <div layout:fragment="content">
   <h1>Content-지금은 cartList에 와 있습니다.</h1>
+  <div class="cartList" th:each="cartList: ${member.getCartList()}">
+    책정보<div th:text="${cartList.getBook()}"></div>
+    책가격<span class="book-price" th:text="${cartList.getBook().getPrice()}"></span>
+    책수량<span class="book-quantity" th:text="${cartList.getQuantity()}"></span>
+    <input type="button" value="삭제버튼">
+    </div>
 
-</div>
+총계 js로 구하고
+
+  구매버튼
+
+
+
+
+  </div>
 
 
 <th:block layout:fragment="script">

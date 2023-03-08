@@ -3,6 +3,7 @@ package com.project.aladin.controller;
 import com.project.aladin.entity.Book;
 import com.project.aladin.entity.Cart;
 import com.project.aladin.entity.Member;
+import com.project.aladin.entity.Review;
 import com.project.aladin.repository.BookRepository;
 import com.project.aladin.repository.CartRepository;
 import com.project.aladin.repository.CommentRepository;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
+@Log4j2
 public class GenieController {
 
   final BookRepository br;
@@ -58,6 +61,25 @@ public class GenieController {
     Book unwrappedBook = book.get();
     session.setAttribute("book", unwrappedBook);
 
+    //리뷰 정보를 세션에 담는다
+    List<Review> review = book.get().getReviewList();
+
+    log.info("isempty체크: " + review.isEmpty());
+    if (review.isEmpty()) {
+      session.setAttribute("starAvg", 0.0);
+      session.setAttribute("reviewCnt", 0);
+    } else {
+      int reviewCnt = review.size();
+      double starSum = 0;
+      for (int i = 0; i < review.size(); i++) {
+        double eachStar = review.get(i).getStar();
+        starSum += eachStar;
+      }
+      double starAvg = starSum / reviewCnt;
+      session.setAttribute("starAvg", starAvg);
+      session.setAttribute("reviewCnt", reviewCnt);
+
+    }
     return "page/detail";
   }
 
@@ -119,15 +141,24 @@ public class GenieController {
   // 구매 프로세스 관련 매핑
 
   @GetMapping("/page/cartList")
-  public String cartList(int quantity) {
-    // long bookSeq랑 int quantity 넘어옴
-    return "page/cartList";
-  }
+  public String cartList(Model model,HttpSession session) {
+    Optional<Long> loginSession = Optional.ofNullable((Long) session.getAttribute("memberSeq"));
+    if (loginSession.isPresent()) {
+Optional<Member> member= mr.findById(loginSession.get());
+model.addAttribute("member", member.get());
+
+    } else {
+      return "page/login";
+    }
+    return"page/cartList";
+}
 
   // detail에서 제품을 추가하면서 카트리스트로 갈 경우, addToCart 매핑을 거쳐서 리다이렉트하도록 설계
-  @GetMapping("/function/addToCart")
+  //같은 책이 이미 있다면 그 객체를 select해서 quantity를 추가해줘야 함
+  @GetMapping("/page/addToCart")
   public String addToCart(HttpSession session, int quantity) {
-    Optional<Long> loginSession = (Optional<Long>) session.getAttribute("memberSeq");
+    Optional<Long> loginSession = Optional.ofNullable((Long) session.getAttribute("memberSeq"));
+
     if (loginSession.isPresent()) {
       Book book = (Book) session.getAttribute("book");
       Cart cartItem = new Cart();
@@ -137,13 +168,19 @@ public class GenieController {
       Optional<Member> member = mr.findById(id);
       cartItem.setMember(member.get());
       cr.save(cartItem);
-
     } else {
       return "page/login";
     }
-
-    return "redirect:/page/cartList";
+    return "page/addToCart";
   }
+  
+  //각 행의 seq를 받아와서 그걸 기준으로 삭제하면 될 것 같음
+@GetMapping("/page/deleteFromCart")
+public String deleteFromCart(){
+    
+return "redirect:page/cartList";
+}
+
 
   @GetMapping("/page/directBuy")
   public String directBuy() {

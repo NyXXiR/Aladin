@@ -14,14 +14,15 @@
     .purchase-quantity {
       display: flex;
     }
-.book-image{
-  width:300px;
-width:100%;
-}
 
-.row{
-  align-items: center;
-}
+    .book-image {
+      width: 300px;
+      width: 100%;
+    }
+
+    .row {
+      align-items: center;
+    }
 
   </style>
 </th:block>
@@ -44,7 +45,8 @@ width:100%;
 
     <div class="row">
       <div class="col-md-3 detail-book-image">
-          <image class="book-image" th:src="|../../images/${book.getSeq()}.jpg|" onerror="this.src='../../images/error.gif'"></image>
+        <image class="book-image" th:src="|../../images/${book.getSeq()}.jpg|"
+               onerror="this.src='../../images/error.gif'"></image>
       </div>
 
       <div class="col-md-9 detail-book-information">
@@ -56,22 +58,31 @@ width:100%;
         <input type="hidden" id="discountRate" th:value="${book.getDiscountRate()}">
         <input type="hidden" id="mileageRate" th:value="${book.getMileageRate()}">
         <div id="discounted" text=""></div>
-        <div id="mileage" text=""> </div>
+        <div id="mileage" text=""></div>
         <div th:text="|배송료: ${book.getShipPrice()}|"> 배송료</div>
-        <div> 별점/ 리뷰갯수 > 는 review 테이블 가져와야 함</div>
+        <div th:text="|별점: ${session.starAvg}|"> 배송료</div>
+        <div th:text="|리뷰갯수: (${session.reviewCnt})|"> 배송료</div>
+
+        <!--구매시 필요한 정보 form으로 전송-->
         <form method="get">
           <div class="purchase-quantity">
           <span>
         <input name="quantity" class="quantity" type="text" value="1" readonly>
             </span>
             <span>
-            <input type="button" onclick="quantityPlus()"value="+버튼">
+            <input type="button" onclick="quantityPlus()" value="+버튼">
               <input type="button" onclick="quantityMinus()" value="-버튼">
           </span>
           </div>
 
           <div class="purchase-button">
-            <input type="submit" value="장바구니담기" formaction="/page/cartList">
+            <div class="addToCart" style="display: none; border:1px solid black;">
+              <div>제품이 장바구니에 담겼습니다.</div>
+              <input type="submit" value="장바구니로 이동" formaction="/page/cartList" >
+              <input type="button" class="close-ajax" value="창닫기" onclick="closeAjax()">
+
+            </div>
+            <input type="button" id="cartAction" value="장바구니담기">
             <input type="submit" value="바로구매" formaction="/page/directBuy">
             <input type="submit" value="선물하기(구현안함)" formaction="">
           </div>
@@ -79,17 +90,44 @@ width:100%;
       </div>
     </div>
 
-    <div>책소개</div>
-    <div>목차</div>
-    <div>저자소개</div>
+    <div class="row">
+      <div class="col-md-3">
+        책소개
+      </div>
+      <div class="col-md-9">
+        내용
+      </div>
+      <hr style="color:steelblue">
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        목차
+      </div>
+      <div class="col-md-9">
+        내용
+      </div>
+      <hr style="color:steelblue">
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        저자소개
+      </div>
+      <div class="col-md-9">
+        내용
+
+      </div>
+      <hr style="color:steelblue">
+    </div>
+
 
     <div>별점상세- 평균리뷰점수만 입력해두자</div>
-   
+
     <div>리뷰목록 만들려면 리뷰DB가 있어야 함
-    <div>
-    
-    </div>
-    
+      <div>
+
+      </div>
+
     </div>
   </div>
 </div>
@@ -101,29 +139,53 @@ width:100%;
     const discountRate = document.querySelector("#discountRate").getAttribute("value");
     const mileageRate = document.querySelector("#mileageRate").getAttribute("value");
 
-    const discounted = price * (100-discountRate) / 100;
+    const discounted = price * (100 - discountRate) / 100;
     const mileage = price * mileageRate / 100;
 
-console.log(discountRate);
-document.querySelector("#discounted").textContent="할인가: "+ discounted;
-    document.querySelector("#mileage").textContent="적립마일리지("+mileageRate+"%): "+ mileage;
+    console.log(discountRate);
+    document.querySelector("#discounted").textContent = "할인가: " + discounted;
+    document.querySelector("#mileage").textContent = "적립마일리지(" + mileageRate + "%): " + mileage;
 
+    const quantity = document.querySelector(".quantity");
+    function quantityPlus() {
 
-    function quantityPlus(){
-      const quantity= document.querySelector(".quantity");
-      let quantityValue= document.querySelector(".quantity").getAttribute("value");
+      let quantityValue = document.querySelector(".quantity").getAttribute("value");
       quantityValue++;
-quantity.setAttribute("value", quantityValue);
+      quantity.setAttribute("value", quantityValue);
 
     }
 
-    function quantityMinus(){
-      const quantity= document.querySelector(".quantity");
-      let quantityValue= document.querySelector(".quantity").getAttribute("value");
-      if(quantityValue>1){  quantityValue--;}
+    function quantityMinus() {
+      let quantityValue = document.querySelector(".quantity").getAttribute("value");
+      if (quantityValue > 1) {
+        quantityValue--;
+      }
 
       quantity.setAttribute("value", quantityValue);
 
+    }
+    let addToCart= document.querySelector(".addToCart");
+    $("#cartAction").click(function () {
+      $.ajax({
+        type: "GET",
+        url: "/page/addToCart",
+
+      data:{"quantity": quantity.getAttribute("value")},
+        contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+        error: function () {
+          console.log('통신실패!!');
+        },
+        success: function (data) {
+
+          addToCart.style.display="block";
+
+
+        }
+      })
+    });
+
+    function closeAjax(){
+      addToCart.style.display="none";
     }
   </script>
 </th:block>
