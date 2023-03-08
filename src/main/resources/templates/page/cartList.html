@@ -19,7 +19,7 @@
     책정보<div th:text="${cartList.getBook()}"></div>
     책가격<span class="book-price" th:text="${cartList.getBook().getPrice()}"></span>
     책수량<span class="book-quantity" th:text="${cartList.getQuantity()}"></span>
-    <input type="button" value="삭제버튼">
+    <input type="button" value="삭제버튼" onclick="deleteAction(this)">
     </div>
 
 총계 js로 구하고
@@ -34,7 +34,10 @@
 
 <th:block layout:fragment="script">
   <script>
-
+// function deleteAction(this){
+//   $(this).val()
+//
+// }
   </script>
 </th:block>
 
