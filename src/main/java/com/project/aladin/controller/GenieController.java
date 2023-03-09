@@ -98,7 +98,10 @@ public class GenieController {
   }
 
   @GetMapping("/page/login")
-  public String toLogin() {
+  public String toLogin(HttpSession session) {
+    if(session.getAttribute("memberSeq")!=null){
+      return "page/home";
+    }
     return "page/login";
   }
 
@@ -161,13 +164,27 @@ model.addAttribute("member", member.get());
 
     if (loginSession.isPresent()) {
       Book book = (Book) session.getAttribute("book");
-      Cart cartItem = new Cart();
-      cartItem.setQuantity(quantity);
-      cartItem.setBook(book);
-      long id = loginSession.get();
-      Optional<Member> member = mr.findById(id);
-      cartItem.setMember(member.get());
-      cr.save(cartItem);
+
+      Optional<Cart> findCart= cr.findAll().stream().filter(data-> data.getBook().getSeq().equals(book.getSeq())).filter(data->data.getMember().getSeq().equals(session.getAttribute("memberSeq"))).findAny();
+
+      log.info(loginSession.isPresent());
+      log.info(findCart.isPresent());
+      if(findCart.isPresent()) {
+int currentQuantity=  findCart.get().getQuantity();
+findCart.get().setQuantity(currentQuantity+quantity);
+cr.saveAndFlush(findCart.get());
+      }else {
+        //카트에 똑같은 제품이 담기지 않았을 경우
+        Cart cartItem = new Cart();
+        cartItem.setQuantity(quantity);
+        cartItem.setBook(book);
+        long id = loginSession.get();
+        Optional<Member> member = mr.findById(id);
+        cartItem.setMember(member.get());
+        cr.save(cartItem);
+
+      }
+
     } else {
       return "page/login";
     }

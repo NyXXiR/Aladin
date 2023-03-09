@@ -12,7 +12,6 @@ import org.hibernate.annotations.DynamicInsert;
 @Setter
 @Entity
 @Builder
-@ToString
 @AllArgsConstructor
 @DynamicInsert
 

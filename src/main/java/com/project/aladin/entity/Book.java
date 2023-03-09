@@ -18,7 +18,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Setter
 @Entity
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert

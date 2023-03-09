@@ -29,7 +29,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Setter
 @Entity
 @Builder
-@ToString
 @DynamicInsert
 @AllArgsConstructor
 public class Purchase {

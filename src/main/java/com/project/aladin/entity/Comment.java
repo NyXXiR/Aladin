@@ -16,7 +16,6 @@ import org.hibernate.annotations.DynamicInsert;
 @Setter
 @Entity
 @Builder
-@ToString
 @DynamicInsert
 @AllArgsConstructor
 public class Comment {
