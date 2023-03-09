@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html
-    layout:decorate="~{layouts/detail_layout}"
+    layout:decorate="~{layouts/default_layout}"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     xmlns:th="http://www.thymeleaf.org"
 >
@@ -15,29 +15,87 @@
 <!-- Content -->
 <div layout:fragment="content">
   <h1>Content-지금은 cartList에 와 있습니다.</h1>
-  <div class="cartList" th:each="cartList: ${member.getCartList()}">
-    책정보<div th:text="${cartList.getBook()}"></div>
-    책가격<span class="book-price" th:text="${cartList.getBook().getPrice()}"></span>
-    책수량<span class="book-quantity" th:text="${cartList.getQuantity()}"></span>
-    <input type="button" value="삭제버튼" onclick="deleteAction(this)">
+
+  <div>총계 js로 구하고
+
+    구매버튼</div>
+
+  <div class="row" >
+    <div class="col-md-1">
+      <input type="checkbox" value="선택" id="cartList-checkbox-all" checked>
     </div>
 
-총계 js로 구하고
-
-  구매버튼
-
-
-
-
+    <div class="col-md-4">
+      도서명
+    </div>
+    <div class="col-md-3">
+      가격(정가, 할인가, 마일리지적립액)
+    </div>
+    <div class="col-md-2">
+      수량
+    </div>
+    <div class="col-md-2">
+      삭제
+    </div>
   </div>
+
+  <div class="row" th:each="cartList: ${member.getCartList()}">
+    <div class="col-md-1">
+      <input type="checkbox" class="cartList-checkbox"  name="cartList-checkbox" checked>    </div>
+    <div class="col-md-4">
+      <div th:text="${cartList.getBook().getBookName()}"></div>
+    </div>
+    <div class="col-md-3">
+      <div class="book-price" th:text="${cartList.getBook().getPrice()}"></div>
+    </div>
+    <div class="col-md-2">
+      <span class="book-quantity" th:text="${cartList.getQuantity()}"></span>
+      <span>
+        <input type="button" value="+" th:onclick="|location.href='/function/quantityManager/1?cartSeq=${cartList.getSeq()}'|">
+       <input type="button" value="-" th:onclick="|location.href='/function/quantityManager/-1?cartSeq=${cartList.getSeq()}'|">
+      </span>
+    </div>
+    <div class="col-md-2">
+      <input type="button" value="삭제" th:onclick="|location.href='/function/deleteFromCart/${cartList.getSeq()}'|">
+    </div>
+  </div>
+
+
+  <!--총계 및 구매 구간 시작-->
+<div class="book-price-final"></div>
+
+  <!--총계 및 구매 구간 끝-->
+
+
+
+
+</div>
 
 
 <th:block layout:fragment="script">
   <script>
-// function deleteAction(this){
-//   $(this).val()
-//
-// }
+    $(document).ready(function() {
+      $("#cartList-checkbox-all").click(function() {
+        if($("#cartList-checkbox-all").is(":checked")) $("input[name=cartList-checkbox]").prop("checked", true);
+        else $("input[name=cartList-checkbox]").prop("checked", false);
+      });
+
+      $("input[name=cartList-checkbox]").click(function() {
+        var total = $("input[name=cartList-checkbox]").length;
+        var checked = $("input[name=cartList-checkbox]:checked").length;
+
+        if(total != checked) $("#cartList-checkbox-all").prop("checked", false);
+        else $("#cartList-checkbox-all").prop("checked", true);
+      });
+    });
+
+    function quantityPlus(prop){
+
+    }
+    function quantityMinus(prop){
+
+    }
+
   </script>
 </th:block>
 

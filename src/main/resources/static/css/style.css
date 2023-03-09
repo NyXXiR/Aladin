@@ -1,5 +1,5 @@
 * {
-
+border:1px solid black;
   background-position: center;
   background-repeat: no-repeat;
   margin: 0;
@@ -45,19 +45,7 @@ a {
   align-items: center;
 }
 
-.container-sidebar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.container-sidebar > * {
-  width: 80%;
-  height: 80px;
-  background: #df307f;
-  justify-content: center;
-
-}
 
 .header-login-form {
   display: inline-block;
@@ -82,3 +70,21 @@ a {
 }
 
 /* header 끝 */
+
+/* sidebar 시작 */
+
+.container-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-sidebar > * {
+  width: 80%;
+  height: 80px;
+  justify-content: center;
+  background: #df307f center;
+
+}
+/* sidebar 끝 */
+

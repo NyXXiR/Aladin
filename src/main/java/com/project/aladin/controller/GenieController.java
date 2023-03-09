@@ -32,17 +32,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 @Log4j2
 public class GenieController {
-
   final BookRepository br;
   final CommentRepository cr2;
   final EventRepository er;
   final MemberRepository mr;
   final PurchaseRepository pr;
-
   final BookService bs;
-
   final CartRepository cr;
-
   final ReviewRepository rr;
 
   // 메인페이지
@@ -204,6 +200,23 @@ return "redirect:page/cartList";
     // long bookSeq랑 int quantity 넘어옴
 
     return "page/directBuy";
+  }
+
+
+  //function 처리하고 redirect
+  @GetMapping("/function/deleteFromCart/{cartId}")
+  public String deleteAction(@PathVariable long cartId){
+    cr.deleteById(cartId);
+    return "redirect:/page/cartList";
+  }
+
+  @GetMapping("/function/quantityManager/{quantity}")
+  public String quantityManager(@PathVariable int quantity, long cartSeq){
+Cart selectedCart= cr.findById(cartSeq).get();
+int currentQuantity= selectedCart.getQuantity();
+selectedCart.setQuantity(currentQuantity+quantity);
+cr.saveAndFlush(selectedCart);
+    return "redirect:/page/cartList";
   }
 
 }
