@@ -69,13 +69,13 @@
 
 <span class="navbar-main-search">
   검색창 들어갈 곳
-<form action="/#" method="get" id="search-form">
- <select name="search-category" class="serach-category" form="search-form">
-   <option value="category1">카테고리1</option>
-   <option value="category2">카테고리2</option>
-   <option value="category3">카테고리3</option>
+<form action="/page/search" method="get" id="search-form">
+ <select name="category" class="search-category" form="search-form">
+   <option value="카테고리1">카테고리1</option>
+   <option value="카테고리2">카테고리2</option>
+   <option value="카테고리3">카테고리3</option>
  </select>
-  <input type="text" name="search-text">
+  <input type="text" name="keyword">
   <input type="submit" class="button-submit" value="검색">
 </form>
 </span>

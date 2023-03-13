@@ -203,20 +203,18 @@ return "redirect:page/cartList";
   }
 
 
-  //function 처리하고 redirect
-  @GetMapping("/function/deleteFromCart/{cartId}")
-  public String deleteAction(@PathVariable long cartId){
-    cr.deleteById(cartId);
-    return "redirect:/page/cartList";
-  }
+  @GetMapping("/page/search")
+  public String search(String keyword, Model model, @RequestParam(value="page",defaultValue = "0") int page, String category){
+log.info("넘어오는 카테고리값:" +category);
 
-  @GetMapping("/function/quantityManager/{quantity}")
-  public String quantityManager(@PathVariable int quantity, long cartSeq){
-Cart selectedCart= cr.findById(cartSeq).get();
-int currentQuantity= selectedCart.getQuantity();
-selectedCart.setQuantity(currentQuantity+quantity);
-cr.saveAndFlush(selectedCart);
-    return "redirect:/page/cartList";
+//이건 검색만 적용된 리스트
+    Page<Book> searchList= bs.getSearchList(page,keyword);
+
+    //검색에 더해 카테고리 검색이 추가된 리스트
+    Page<Book> getCategorized= bs.getCategorized(searchList,category,page);
+    model.addAttribute("pageList", getCategorized);
+
+    return "page/category";
   }
 
 }
