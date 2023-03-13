@@ -1,6 +1,7 @@
 package com.project.aladin.controller;
 
 import com.project.aladin.entity.Cart;
+import com.project.aladin.entity.Review;
 import com.project.aladin.repository.BookRepository;
 import com.project.aladin.repository.CartRepository;
 import com.project.aladin.repository.CommentRepository;
@@ -9,6 +10,9 @@ import com.project.aladin.repository.MemberRepository;
 import com.project.aladin.repository.PurchaseRepository;
 import com.project.aladin.repository.ReviewRepository;
 import com.project.aladin.service.BookService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import java.net.http.HttpRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -43,7 +47,18 @@ public class FunctionController {
     return "redirect:/page/cartList";
   }
 
-
+@GetMapping("/function/insertReview")
+  public String insertReview(HttpServletRequest request, double star, String content, Long bookSeq, HttpSession session){
+  String referer =request.getHeader("referer");
+Long memberSeq= (Long) session.getAttribute("memberSeq");
+  Review review= new Review();
+  review.setBook(br.findById(bookSeq).get());
+  review.setMember(mr.findById(memberSeq).get());
+  review.setStar(star);
+  review.setContent(content);
+  rr.saveAndFlush(review);
+  return "redirect:"+ referer;
+}
 
 
 }

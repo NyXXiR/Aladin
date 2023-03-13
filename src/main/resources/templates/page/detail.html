@@ -123,7 +123,33 @@
 
     <div>별점상세- 평균리뷰점수만 입력해두자</div>
 
-    <div>리뷰목록 만들려면 리뷰DB가 있어야 함
+    <!-- 리뷰 입력 구간 시작-->
+    <div>
+      <form  action="/function/insertReview" class="review-write">
+        별점테스트. 0~10까지 매길 수 있음
+        <span class="star-draw">
+  ★★★★★
+  <span>★★★★★</span>
+  <input type="range" name="star" class="star" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
+</span>
+        <br>
+        <textarea rows="3" name="content">
+
+    </textarea>
+        <input type="hidden" id="bookSeq" name="bookSeq" th:value="${book.getSeq()}">
+        <input type="submit" value="리뷰등록">
+
+      </form>
+      <!-- 리뷰 입력 구간 끝-->
+      <!-- 리뷰리스트 구간 시작-->
+      <div th:text="|평균별점: ${session.starAvg}|"></div>
+      <div class="reviewList" th:each="reviewList: ${session.book.getReviewList()}">
+      <div th:text="|아이디: ${reviewList.getMember.getMemberId()}|"> 아이디</div>
+        <div th:text="|별점: (${reviewList.getStar()})|"> 별점</div>
+
+      <div th:text="|내용: ${reviewList.getContent()}|"> 내용</div>
+</div>
+      <!-- 리뷰리스트 구간 끝-->
       <div>
 
       </div>
@@ -186,6 +212,10 @@
 
     function closeAjax(){
       addToCart.style.display="none";
+    }
+
+    const drawStar = (target) => {
+      document.querySelector(`.star-draw span`).style.width = `${target.value * 10}%`;
     }
   </script>
 </th:block>

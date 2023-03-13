@@ -45,11 +45,12 @@
     <div class="col-md-4">
       <div th:text="${cartList.getBook().getBookName()}"></div>
     </div>
+    <input type="text" class="book-eachSum" value="함수가 입력해줄꺼임" onclick="eachSum(this)">
     <div class="col-md-3">
-      <div class="book-price" th:text="${cartList.getBook().getPrice()}"></div>
+      <div class="book-price" th:text="${cartList.getBook().getPrice()}" th:value="${cartList.getBook().getPrice()}"></div>
     </div>
     <div class="col-md-2">
-      <span class="book-quantity" th:text="${cartList.getQuantity()}"></span>
+      <span class="book-quantity" th:text="${cartList.getQuantity()}"  th:value="${cartList.getQuantity()}"></span>
       <span>
         <input type="button" value="+" th:onclick="|location.href='/function/quantityManager/1?cartSeq=${cartList.getSeq()}'|">
        <input type="button" value="-" th:onclick="|location.href='/function/quantityManager/-1?cartSeq=${cartList.getSeq()}'|">
@@ -58,11 +59,18 @@
     <div class="col-md-2">
       <input type="button" value="삭제" th:onclick="|location.href='/function/deleteFromCart/${cartList.getSeq()}'|">
     </div>
+
   </div>
 
 
   <!--총계 및 구매 구간 시작-->
-<div class="book-price-final"></div>
+<div class="book-price-summary">
+
+  합계: <div class="book-price-final" value=""></div>
+
+
+
+</div>
 
   <!--총계 및 구매 구간 끝-->
 
@@ -95,6 +103,28 @@
     function quantityMinus(prop){
 
     }
+
+    function eachSum(props){
+      let price= $(props).parent().children(".col-md-3").children(".book-price").attr("value");
+      let quantity= $(props).parent().children(".col-md-2").children(".book-quantity").attr("value");
+
+      let eachSum =price*quantity;
+      $(props).val(eachSum);
+    }
+
+
+    //여기부터 고쳐야함
+      let eachSums = document.querySelectorAll(".book-eachSum");
+    console.log(eachSums);
+      let finalPrice = 0;
+      for (let i = 0; i < eachSums.length; i++) {
+        let eachSumss = eachSums.item(i).getAttribute("value");
+        finalPrice += eachSumss;
+      }
+
+      document.querySelector(".book-price-final").value=finalPrice;
+
+
 
   </script>
 </th:block>

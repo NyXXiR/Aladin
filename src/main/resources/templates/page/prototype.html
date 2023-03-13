@@ -9,12 +9,12 @@
 <th:block layout:fragment="css">
   <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
 </th:block>
-<!-- home_new.html 고유 스크립트 추가 -->
+
 
 
 <!-- Content -->
 <div layout:fragment="content">
-  <h1>Content-지금은 detail에 와 있습니다.</h1>
+  <h1>Content-지금은 프로토타입에 와 있습니다.</h1>
 
 
   <!-- 리스트 타입의 컴포넌트, 박스 타입의 컴포넌트를 하나씩 만들어두자-->
@@ -68,12 +68,32 @@
 
   </div>
 
+  <form  action="/function/insertReview" class="review-write">
+  별점테스트. 0~10까지 매길 수 있음
+  <span class="star-draw">
+  ★★★★★
+  <span>★★★★★</span>
+  <input type="range" name="star" class="star" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
+</span>
+    <br>
+    <textarea rows="3" name="content">
+
+    </textarea>
+    <input type="hidden" id="bookSeq" name="bookSeq" th:value="${book.getSeq()}">
+    <input type="submit" value="리뷰등록">
+
+  </form>
+
 </div>
+
+
 
 
 <th:block layout:fragment="script">
   <script>
-
+    const drawStar = (target) => {
+      document.querySelector(`.star-draw span`).style.width = `${target.value * 10}%`;
+    }
   </script>
 </th:block>
 

@@ -88,3 +88,29 @@ a {
 }
 /* sidebar 끝 */
 
+
+
+/* 별점 테스트 */
+.star-draw {
+  position: relative;
+  font-size: 2rem;
+  color: #ddd;
+}
+
+.star-draw input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.star-draw span {
+  width: 0;
+  position: absolute;
+  left: 0;
+  color: red;
+  overflow: hidden;
+  pointer-events: none;
+}
