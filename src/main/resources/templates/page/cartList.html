@@ -16,45 +16,52 @@
 <div layout:fragment="content">
   <h1>Content-지금은 cartList에 와 있습니다.</h1>
 
-  <div>총계 js로 구하고
 
-    구매버튼</div>
 
   <div class="row" >
-    <div class="col-md-1">
+    <div class="col-md-1 checkbox">
       <input type="checkbox" value="선택" id="cartList-checkbox-all" checked>
     </div>
 
     <div class="col-md-4">
       도서명
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       가격(정가, 할인가, 마일리지적립액)
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
       수량
+    </div>
+    <div class="col-md-2">
+      결제금액
     </div>
     <div class="col-md-2">
       삭제
     </div>
   </div>
-
+  <form action="/function/buyAction">
   <div class="row" th:each="cartList: ${member.getCartList()}">
-    <div class="col-md-1">
-      <input type="checkbox" class="cartList-checkbox"  name="cartList-checkbox" checked>    </div>
+    <div class="col-md-1 checkbox">
+      <input type="checkbox" class="cartList-checkbox checkbox"  name="cartList-checkbox" checked>
+      <input th:type="hidden" name="cartSeq" th:value="${cartList.getSeq()}">
+    </div>
     <div class="col-md-4">
       <div th:text="${cartList.getBook().getBookName()}"></div>
     </div>
-    <input type="text" class="book-eachSum" value="함수가 입력해줄꺼임" onclick="eachSum(this)">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="book-price" th:text="${cartList.getBook().getPrice()}" th:value="${cartList.getBook().getPrice()}"></div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
       <span class="book-quantity" th:text="${cartList.getQuantity()}"  th:value="${cartList.getQuantity()}"></span>
       <span>
         <input type="button" value="+" th:onclick="|location.href='/function/quantityManager/1?cartSeq=${cartList.getSeq()}'|">
        <input type="button" value="-" th:onclick="|location.href='/function/quantityManager/-1?cartSeq=${cartList.getSeq()}'|">
       </span>
+    </div>
+    <div class="col-md-2">
+      <div th:with="sum=${cartList.getBook().getPrice()}*${cartList.getQuantity()}">
+        <div class="book-price-sum" th:text="${sum}" th:value="${sum}"></div>
+      </div>
     </div>
     <div class="col-md-2">
       <input type="button" value="삭제" th:onclick="|location.href='/function/deleteFromCart/${cartList.getSeq()}'|">
@@ -64,14 +71,15 @@
 
 
   <!--총계 및 구매 구간 시작-->
+
 <div class="book-price-summary">
 
-  합계: <div class="book-price-final" value=""></div>
-
+  합계: <span class="book-price-final"></span>
+<input type="submit" value="구매하기">
 
 
 </div>
-
+  </form>
   <!--총계 및 구매 구간 끝-->
 
 
@@ -97,33 +105,56 @@
       });
     });
 
-    function quantityPlus(prop){
-
-    }
-    function quantityMinus(prop){
-
-    }
-
-    function eachSum(props){
-      let price= $(props).parent().children(".col-md-3").children(".book-price").attr("value");
-      let quantity= $(props).parent().children(".col-md-2").children(".book-quantity").attr("value");
-
-      let eachSum =price*quantity;
-      $(props).val(eachSum);
-    }
-
 
     //여기부터 고쳐야함
-      let eachSums = document.querySelectorAll(".book-eachSum");
-    console.log(eachSums);
-      let finalPrice = 0;
-      for (let i = 0; i < eachSums.length; i++) {
-        let eachSumss = eachSums.item(i).getAttribute("value");
-        finalPrice += eachSumss;
-      }
+    //   let eachSums = document.querySelectorAll(".book-eachSum");
+    // console.log(eachSums);
+    //   let finalPrice = 0;
+    //   for (let i = 0; i < eachSums.length; i++) {
+    //     let eachSumss = eachSums.item(i).getAttribute("value");
+    //     finalPrice += eachSumss;
+    //   }
+    //
+    //   document.querySelector(".book-price-final").value=finalPrice;
 
-      document.querySelector(".book-price-final").value=finalPrice;
+let finalPrice=0;
 
+$('.book-price-sum').each(function(){
+let checkbox = this.parentNode.parentNode.parentNode.childNodes.item(1).childNodes.item(1);
+console.log("체크박스: "+checkbox);
+if(checkbox.checked){
+  let eachPrice = $(this).attr("value") *1;
+ finalPrice+=eachPrice;
+}
+$('.book-price-final').text(finalPrice);
+console.log(finalPrice);
+console.log($('.book-price-final'));
+});
+
+
+
+        function checkboxListener(event){
+          finalPrice=0;
+  $('.book-price-sum').each(function(){
+    let checkbox = this.parentNode.parentNode.parentNode.childNodes.item(1).childNodes.item(1);
+    console.log("체크박스: "+checkbox);
+    if(checkbox.checked){
+      let eachPrice = $(this).attr("value") *1;
+      $(this).next().attr("disabled", false);
+
+      finalPrice+=eachPrice;
+    }else{
+      $(this).next().attr("disabled", true);
+    }
+    $('.book-price-final').text(finalPrice);
+    console.log(finalPrice);
+    console.log($('.book-price-final'));
+  });
+}
+
+    let checkboxes= document.querySelectorAll('.checkbox');
+
+       checkboxes.forEach((checkbox)=>{checkbox.addEventListener('change',checkboxListener)});
 
 
   </script>

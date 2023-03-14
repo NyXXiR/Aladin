@@ -13,6 +13,9 @@ import com.project.aladin.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
+
 @RequiredArgsConstructor
 @Log4j2
 public class FunctionController {
@@ -60,5 +64,11 @@ Long memberSeq= (Long) session.getAttribute("memberSeq");
   return "redirect:"+ referer;
 }
 
+@GetMapping("/function/buyAction")
+  public String buyAction(long[] cartSeq){
+log.info(cartSeq);
+
+    return "page/buyActionConfirmed";
+}
 
 }

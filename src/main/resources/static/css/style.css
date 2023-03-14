@@ -114,3 +114,7 @@ a {
   overflow: hidden;
   pointer-events: none;
 }
+.checkbox {
+  display: inherit;
+  justify-content: center;
+}
