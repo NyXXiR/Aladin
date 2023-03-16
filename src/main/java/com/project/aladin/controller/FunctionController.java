@@ -1,5 +1,6 @@
 package com.project.aladin.controller;
 
+import com.project.aladin.entity.Book;
 import com.project.aladin.entity.Cart;
 import com.project.aladin.entity.Purchase;
 import com.project.aladin.entity.Review;
@@ -14,6 +15,11 @@ import com.project.aladin.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -88,5 +94,28 @@ public class FunctionController {
     }
     return "page/buyActionConfirmed";
   }
+
+  @GetMapping("/function/insertBook")
+  public String insertBook(String bookName, int price, String publishDate, String publisher, String writer, int discountRate, int mileageRate, int shipPrice, String category){
+DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+LocalDate date= LocalDate.parse(publishDate, formatter);
+
+    Book bookInfo = new Book();
+//필수입력사항
+bookInfo.setBookName(bookName);
+bookInfo.setPrice(price);
+bookInfo.setCategory(category);
+bookInfo.setPublishDate(date);
+bookInfo.setPublisher(publisher);
+bookInfo.setWriter(writer);
+
+//추가입력사항
+bookInfo.setDiscountRate(discountRate);
+bookInfo.setMileageRate(mileageRate);;
+bookInfo.setShipPrice(shipPrice);
+
+br.saveAndFlush(bookInfo);
+    return "page/myPage";
+  };
 
 }

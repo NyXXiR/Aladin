@@ -60,8 +60,7 @@
         <div id="discounted" text=""></div>
         <div id="mileage" text=""></div>
         <div th:text="|배송료: ${book.getShipPrice()}|"> 배송료</div>
-        <div th:text="|별점: ${session.starAvg}|"> 배송료</div>
-        <div th:text="|리뷰갯수: (${session.reviewCnt})|"> 배송료</div>
+        <div th:text="|별점(리뷰수): ${session.starAvg}(${session.reviewCnt})|"> 별점+리뷰갯수</div>
 
         <!--구매시 필요한 정보 form으로 전송-->
         <form method="get">
@@ -121,7 +120,7 @@
     </div>
 
 
-    <div>별점상세- 평균리뷰점수만 입력해두자</div>
+
 
     <!-- 리뷰 입력 구간 시작-->
     <div>
@@ -138,7 +137,6 @@
     </textarea>
         <input type="hidden" id="bookSeq" name="bookSeq" th:value="${book.getSeq()}">
         <input type="submit" value="리뷰등록">
-
       </form>
       <!-- 리뷰 입력 구간 끝-->
       <!-- 리뷰리스트 구간 시작-->
@@ -148,6 +146,7 @@
         <div th:text="|별점: (${reviewList.getStar()})|"> 별점</div>
 
       <div th:text="|내용: ${reviewList.getContent()}|"> 내용</div>
+        <hr style="color:steelblue">
 </div>
       <!-- 리뷰리스트 구간 끝-->
       <div>
@@ -169,7 +168,7 @@
     const mileage = price * mileageRate / 100;
 
     console.log(discountRate);
-    document.querySelector("#discounted").textContent = "할인가: " + discounted;
+    document.querySelector("#discounted").textContent = "할인가: " + discounted+`(${discountRate}% 할인)`;
     document.querySelector("#mileage").textContent = "적립마일리지(" + mileageRate + "%): " + mileage;
 
     const quantity = document.querySelector(".quantity");

@@ -9,4 +9,5 @@ if(loginCheck===("")){
 }else{
   loginCheckFail.style.display="none"
 }
+
 //로그인 체크 끝

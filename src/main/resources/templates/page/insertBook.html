@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/detail_layout}"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/detail_layout}"
 >
 
-  <!-- home.html 고유 CSS 추가. 필요시 아래 주석 제거하고 매핑 -->
-  <th:block layout:fragment="css">
-    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
-  </th:block>
-  <!-- home_new.html 고유 스크립트 추가 -->
-  
-
-  <!-- Content -->
-  <div layout:fragment="content">
-    <h1>Content-지금은 책추가에 와 있습니다.</h1>
-
-    <div class="insertBook">
-      <form action="/page/insertBook" method="post">
-
-        <input type="text">
+<!-- home.html 고유 CSS 추가. 필요시 아래 주석 제거하고 매핑 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- home_new.html 고유 스크립트 추가 -->
 
 
-      </form>
+<!-- Content -->
+<div layout:fragment="content">
+  <h1>Content-지금은 책추가에 와 있습니다.</h1>
 
+  <div class="insertBook">
+    <form action="/function/insertBook" method="get" id="insertBook">
+      <h1>필수입력</h1>
+      도서명<input type="text" name="bookName" required>
+      <select name="category" class="search-category" form="insertBook">
+        <option value="카테고리1">카테고리1</option>
+        <option value="카테고리2">카테고리2</option>
+        <option value="카테고리3">카테고리3</option>
+      </select>
+      가격<input type="number" name="price" required>
+      출간일자<input type="date" name="publishDate" required>
+      출판사<input type="text" name="publisher" required>
+      작가명<input type="text" name="writer" required>
 
-    </div>
+      <h2>추가입력사항</h2>
+      할인율(기본 0%)<input type="number" name="discountRate" placeholder="0">
+      적립율(기본 5%)<input type="number" name="mileageRate" placeholder="5">
+      배송비(기본 0원)<input type="number" name="shipPrice" placeholder="0">
+      <input type="submit" value="제출">
+    </form>
+
 
   </div>
-  
-  
-  <th:block layout:fragment="script">
- <script>
 
-  </script>  
-  </th:block>
- 
+</div>
+
+
+<th:block layout:fragment="script">
+  <script>
+
+  </script>
+</th:block>
+
 </html>

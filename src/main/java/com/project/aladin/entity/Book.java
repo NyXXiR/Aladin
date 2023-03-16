@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,8 @@ public class Book {
   private String publisher;
   private String category;
 
-  private LocalDateTime publishDate;
+  @DateTimeFormat
+  private LocalDate publishDate;
   
   //가격 정보
   private int price;
