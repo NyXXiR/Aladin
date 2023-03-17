@@ -129,10 +129,10 @@
         <span class="star-draw">
   ★★★★★
   <span>★★★★★</span>
-  <input type="range" name="star" class="star" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
+  <input type="range" name="star" class="star" oninput="drawStar(this)" value="10" step="1" min="0" max="10">
 </span>
         <br>
-        <textarea rows="3" name="content">
+        <textarea rows="3" name="content" minlength="10" placeholder="리뷰입력">
 
     </textarea>
         <input type="hidden" id="bookSeq" name="bookSeq" th:value="${book.getSeq()}">

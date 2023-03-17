@@ -1,8 +1,13 @@
 * {
+  border:1px solid black;
   background-position: center;
   background-repeat: no-repeat;
   margin: 0;
   padding: 0;
+}
+
+img{
+  vertical-align: middle;
 }
 
 hr {

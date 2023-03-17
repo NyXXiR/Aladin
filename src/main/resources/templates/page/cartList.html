@@ -43,7 +43,7 @@
   <div class="row" th:each="cartList: ${member.getCartList()}">
     <div class="col-md-1 checkbox">
       <input type="checkbox" class="cartList-checkbox checkbox"  name="cartList-checkbox" checked>
-      <input th:type="hidden" name="cartSeq" th:value="${cartList.getSeq()}">
+      <input th:type="text" name="cartSeq" th:value="${cartList.getSeq()}">
     </div>
     <div class="col-md-4">
       <div th:text="${cartList.getBook().getBookName()}"></div>
@@ -121,7 +121,7 @@ let finalPrice=0;
 
 $('.book-price-sum').each(function(){
 let checkbox = this.parentNode.parentNode.parentNode.childNodes.item(1).childNodes.item(1);
-console.log("체크박스: "+checkbox);
+
 if(checkbox.checked){
   let eachPrice = $(this).attr("value") *1;
  finalPrice+=eachPrice;
@@ -138,14 +138,16 @@ console.log($('.book-price-final'));
           finalPrice=0;
   $('.book-price-sum').each(function(){
     let checkbox = this.parentNode.parentNode.parentNode.childNodes.item(1).childNodes.item(1);
-    console.log("체크박스: "+checkbox);
+    console.log(checkbox.nextSibling.nextSibling);
+
     if(checkbox.checked){
       let eachPrice = $(this).attr("value") *1;
-      $(this).next().attr("disabled", false);
+checkbox.nextSibling.nextSibling.setAttribute("disabled", false);
 
       finalPrice+=eachPrice;
     }else{
-      $(this).next().attr("disabled", true);
+      checkbox.nextSibling.nextSibling.setAttribute("disabled", true);
+
     }
     $('.book-price-final').text(finalPrice);
     console.log(finalPrice);

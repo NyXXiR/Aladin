@@ -25,17 +25,18 @@ public class BookService {
  }
 
  @Transactional
-  public Page<Book> getSearchList(int page, String keyword){
-   Pageable pageable = PageRequest.of(page,10);
-   Page<Book> searchList = br.findByBookNameContaining(keyword, pageable);
+  public List<Book> getSearchList( String keyword){
+
+
+   List<Book> searchList = br.findByBookNameContaining(keyword);
 
    return searchList;
  }
 
  @Transactional
- public Page<Book> getCategorized(Page<Book> searchList, String category, int page){
+ public Page<Book> getCategorized(List<Book> searchList, String category, int page){
   Pageable pageable = PageRequest.of(page,10);
-  List<Book> categorized= searchList.filter(data->data.getCategory().equals(category)).stream().toList();
+  List<Book> categorized= searchList.stream().filter(data->data.getCategory().equals(category)).toList();
   int start= (int) pageable.getOffset();
   int end= Math.min((start+pageable.getPageSize()),categorized.size());
 

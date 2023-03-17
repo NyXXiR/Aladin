@@ -208,12 +208,14 @@ return "redirect:page/cartList";
 log.info("넘어오는 카테고리값:" +category);
 
 //이건 검색만 적용된 리스트
-    Page<Book> searchList= bs.getSearchList(page,keyword);
-int totalPage=searchList.getTotalPages();
+    List<Book> searchList= bs.getSearchList(keyword);
+
     //검색에 더해 카테고리 검색이 추가된 리스트
     Page<Book> getCategorized= bs.getCategorized(searchList,category,page);
+    int totalPage=getCategorized.getTotalPages();
     model.addAttribute("pageList", getCategorized);
     model.addAttribute("totalPage", totalPage);
+    model.addAttribute("100",100);
 
     return "page/category";
   }

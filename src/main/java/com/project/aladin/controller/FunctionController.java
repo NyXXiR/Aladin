@@ -63,8 +63,13 @@ public class FunctionController {
   @GetMapping("/function/insertReview")
   public String insertReview(HttpServletRequest request, double star, String content, Long bookSeq,
       HttpSession session) {
+    Long memberSeq= (Long)session.getAttribute("memberSeq");
     String referer = request.getHeader("referer");
-    Long memberSeq = (Long) session.getAttribute("memberSeq");
+//로그인되어있지 않을 경우 이전 페이지로 뱉음
+    if(memberSeq==null){
+     return "redirect:" + referer;
+   }
+    
     Review review = new Review();
     review.setBook(br.findById(bookSeq).get());
     review.setMember(mr.findById(memberSeq).get());
