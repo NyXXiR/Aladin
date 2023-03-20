@@ -71,7 +71,15 @@
       </div>
 </div>
 
+
+   <span th:each="eachPage:${#numbers.sequence(1,totalPage)}">
+     <a th:href="@{/page/search(category=${category}, keyword=${keyword}, page=${eachPage-1})}">[[${eachPage}]]</a>
+   </span>
+
       </div>
+
+
+
 
 
     

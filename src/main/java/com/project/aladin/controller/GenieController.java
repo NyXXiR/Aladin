@@ -217,6 +217,11 @@ log.info("넘어오는 카테고리값:" +category);
     model.addAttribute("totalPage", totalPage);
     model.addAttribute("100",100);
 
+    //페이징 기능을 위해 model에 keyword와 category 검색값을 저장
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("category",category);
+
+
     return "page/category";
   }
 

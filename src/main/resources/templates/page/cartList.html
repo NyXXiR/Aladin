@@ -43,7 +43,7 @@
   <div class="row" th:each="cartList: ${member.getCartList()}">
     <div class="col-md-1 checkbox">
       <input type="checkbox" class="cartList-checkbox checkbox"  name="cartList-checkbox" checked>
-      <input th:type="text" name="cartSeq" th:value="${cartList.getSeq()}">
+      <input th:type="hidden" name="cartSeq" th:value="${cartList.getSeq()}">
     </div>
     <div class="col-md-4">
       <div th:text="${cartList.getBook().getBookName()}"></div>

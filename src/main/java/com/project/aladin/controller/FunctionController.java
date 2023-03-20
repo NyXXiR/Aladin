@@ -83,7 +83,7 @@ public class FunctionController {
   public String buyAction(long[] cartSeq) {
     log.info(cartSeq);
 
-    for (int i = 0; i < cartSeq.length; i++) {
+  for (int i = 0; i < cartSeq.length; i++) {
      log.info(cr.findById(cartSeq[i])) ;
 //purchase insert action
       Cart cartInfo = cr.findById(cartSeq[i]).get();
