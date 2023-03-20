@@ -215,6 +215,7 @@ log.info("넘어오는 카테고리값:" +category);
     int totalPage=getCategorized.getTotalPages();
     model.addAttribute("pageList", getCategorized);
     model.addAttribute("totalPage", totalPage);
+    //적립/할인 연산을 위해 숫자 추가
     model.addAttribute("100",100);
 
     //페이징 기능을 위해 model에 keyword와 category 검색값을 저장

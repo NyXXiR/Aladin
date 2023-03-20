@@ -46,9 +46,7 @@
       <div class="col-md-3">
         <form method="get">
           <div class="purchase-quantity">
-          <span>
         <input name="quantity" class="quantity" type="text" value="1" readonly>
-            </span>
             <span>
             <input type="button" onclick="quantityPlus(this)" value="+버튼">
               <input type="button" onclick="quantityMinus(this)" value="-버튼">
@@ -106,21 +104,24 @@
     <script th:inline="javascript">
 
 
-      function quantityPlus() {
-        const quantity = document.querySelector(".quantity");
-        let quantityValue = document.querySelector(".quantity").getAttribute("value");
-        quantityValue++;
-        quantity.setAttribute("value", quantityValue);
+      function quantityPlus(props) {
+        console.log(props.parentNode.parentNode.firstChild.nextElementSibling.getAttribute("value"));
+        const quantity= props.parentNode.parentNode.firstChild.nextElementSibling;
+        let quantityValue= props.parentNode.parentNode.firstChild.nextElementSibling.getAttribute("value");
 
+          quantityValue++;
+        quantity.setAttribute("value", quantityValue);
       }
 
-      function quantityMinus() {
-        const quantity = document.querySelector(".quantity");
-        let quantityValue = document.querySelector(".quantity").getAttribute("value");
+      function quantityMinus(props) {
+        console.log(props.parentNode.parentNode.firstChild.nextElementSibling.getAttribute("value"));
+        const quantity= props.parentNode.parentNode.firstChild.nextElementSibling;
+
+        let quantityValue= props.parentNode.parentNode.firstChild.nextElementSibling.getAttribute("value");
+
         if (quantityValue > 1) {
           quantityValue--;
         }
-
         quantity.setAttribute("value", quantityValue);
 
       }
