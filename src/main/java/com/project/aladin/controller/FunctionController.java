@@ -23,12 +23,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 
@@ -123,4 +126,14 @@ br.saveAndFlush(bookInfo);
     return "page/myPage";
   };
 
+  @GetMapping("/function/idRepeatCheck")
+  @ResponseBody
+  public String idRepeatCheck(@RequestParam("inputId") String id){
+String result="N";
+boolean check= mr.existsByMemberId(id);
+if(check==true){ result="Y";}
+
+  return result;
+
+  }
 }

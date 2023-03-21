@@ -18,12 +18,12 @@
 
     <div class="insertMember">
       <form action="/page/insertMember" method="post">
-        ID:<input type="text" name="id">
-        <input type="button" name="idRepeatCheck" value="ID중복체크">
-        PW:<input type="text" name="pw">
+        ID:<input type="text" name="id" id="inputId">
+        <input type="button" name="idRepeatCheck" id="idRepeatCheck"value="ID중복체크">
+        <div id="idRepeatCheck-result"></div>
+
+        PW:<input type="text" name="pw" id="inputPw">
         <input type="submit" value="제출">
-
-
 
       </form>
 
@@ -34,6 +34,39 @@
   
   <th:block layout:fragment="script">
  <script>
+
+   $(function(){
+     $("#idRepeatCheck").click(function(){
+
+       let inputId = $("#inputId").val();
+
+       $.ajax({
+         type:'get', //post 형식으로 controller 에 보내기위함!!
+         url:"/function/idRepeatCheck", // 컨트롤러로 가는 mapping 입력
+         data: {"inputId":inputId}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
+         success: function(data){
+           if(data == "N"){ // 만약 성공할시
+             result = "사용 가능한 아이디입니다.";
+             console.log(data);
+             $("#idRepeatCheck-result").html(result).css("color", "green");
+             $("#inputPw").trigger("focus");
+
+           }else{ // 만약 실패할시
+             result="이미 사용중인 아이디입니다.";
+             console.log(data);
+             $("#idRepeatCheck-result").html(result).css("color","red");
+             $("#inputId").val("").trigger("focus");
+           }
+
+         },
+         error : function(error){alert(error);}
+       });
+
+     });
+
+   });
+
+
 
   </script>  
   </th:block>

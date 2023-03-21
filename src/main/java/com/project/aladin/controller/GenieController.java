@@ -14,6 +14,8 @@ import com.project.aladin.service.BookService;
 import com.project.aladin.repository.ReviewRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -209,6 +211,29 @@ log.info("넘어오는 카테고리값:" +category);
 
 //이건 검색만 적용된 리스트
     List<Book> searchList= bs.getSearchList(keyword);
+    List<HashMap> reviewList = new ArrayList<>();
+    for(int i=0;i<searchList.size();i++){
+      List<Review> eachReview= searchList.get(i).getReviewList();
+      HashMap<String, Double> eachMap = new HashMap<>();
+      if (eachReview.isEmpty()) {
+        eachMap.put("starAvg", (double)0);
+        eachMap.put("reviewCnt", (double)0);
+      }else{
+        double reviewCnt= eachReview.size();
+        double starAvg=0;
+        double starSum=0;
+
+        for(int j=0;j<reviewCnt;j++){
+          double eachStar= eachReview.get(j).getStar();
+starSum+=eachStar;
+        }
+        starAvg=starSum/reviewCnt;
+        eachMap.put("starAvg", starAvg);
+        eachMap.put("reviewCnt", reviewCnt);
+      }
+
+reviewList.add(eachMap);
+    }
 
     //검색에 더해 카테고리 검색이 추가된 리스트
     Page<Book> getCategorized= bs.getCategorized(searchList,category,page);
@@ -221,6 +246,7 @@ log.info("넘어오는 카테고리값:" +category);
     //페이징 기능을 위해 model에 keyword와 category 검색값을 저장
     model.addAttribute("keyword", keyword);
     model.addAttribute("category",category);
+    model.addAttribute("reviewList",reviewList);
 
 
     return "page/category";

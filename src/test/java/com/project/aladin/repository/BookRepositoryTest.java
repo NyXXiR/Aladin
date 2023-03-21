@@ -35,7 +35,7 @@ class BookRepositoryTest {
 
   for (int i = 0; i < 10; i++) {
     Book book1 = Book.builder().bookName("책제목").writer("작가명").publisher("출판사명").category("카테고리3")
-        .publishDate(ldt).price(20000).build();
+        .publishDate(ld).price(20000).build();
 
     br.save(book1);
   }
