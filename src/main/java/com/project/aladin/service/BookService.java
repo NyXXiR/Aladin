@@ -37,6 +37,8 @@ public class BookService {
  public Page<Book> getCategorized(List<Book> searchList, String category, int page){
   Pageable pageable = PageRequest.of(page,10);
   List<Book> categorized= searchList.stream().filter(data->data.getCategory().equals(category)).toList();
+
+
   int start= (int) pageable.getOffset();
   int end= Math.min((start+pageable.getPageSize()),categorized.size());
 
